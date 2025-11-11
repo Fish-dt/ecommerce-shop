@@ -1,22 +1,23 @@
-'use client';
 import "./globals.css";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { SessionProvider } from 'next-auth/react';
 
-import { ReactNode } from 'react';
-import { Provider } from 'react-redux';
-import { store } from '@/redux/store';
-import { Navbar } from '@/components/Navbar';
+import { AppProviders } from '@/components/AppProviders';
 import { Footer } from '@/components/Footer';
-import { Toaster } from "sonner";
-import { FavoritesInitializer } from '@/components/Favorites/FavoritesInitializer';
-import { SEOHead } from '@/components/SEO/SEOHead';
+import { siteConfig } from '@/lib/seo';
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-plus-jakarta-sans",
 });
 
+export const metadata = {
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+};
 
 export default function RootLayout({
   children,
@@ -33,18 +34,10 @@ export default function RootLayout({
       <body
         className={`${plusJakartaSans.variable} antialiased flex flex-col min-h-screen`}
       >
-        <SEOHead />
-        <SessionProvider>
-        <Provider store={store}>
-          <FavoritesInitializer />
-          <Navbar/>
-          <div className="flex-1 flex flex-col">
-            {children}
-          </div>
-          <Footer/>
-            <Toaster position="top-right" />
-          </Provider>
-        </SessionProvider>
+        <AppProviders>
+          {children}
+        </AppProviders>
+        <Footer/>
       </body>
     </html>
   );

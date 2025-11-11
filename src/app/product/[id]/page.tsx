@@ -1,26 +1,32 @@
-'use client';
+import { fetchProduct } from '@/services/productService';
+import type { Metadata } from 'next';
+import { ProductDetailClient } from '@/components/Product/ProductDetailClient';
 
-import { ProductDetailLayout } from '@/components/Product/ProductDetailLayout';
-import { LoadingState } from '@/components/ui/loading-state';
-import { ErrorState } from '@/components/ui/error-state';
-import { useProductDetail } from '@/hooks/useProductDetail';
-import { PageMetadata } from '@/components/SEO/PageMetadata';
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  try {
+    const { id } = await params;
+    const product = await fetchProduct(id);
+    const title = product.title;
+    const description =
+      product.description ||
+      `Buy ${product.title} at $${product.price}. High quality product with fast delivery.`;
+
+    return {
+      title,
+      description,
+    };
+  } catch {
+    return {
+      title: 'Product not found',
+      description: 'The requested product could not be found.',
+    };
+  }
+}
 
 export default function ProductDetailPage() {
-  const { product, isLoading, error } = useProductDetail();
-
-  if (isLoading) return <LoadingState />;
-  if (error || !product) return <ErrorState message="Product not found." title="Not Found" />;
-
-  return (
-    <>
-      <PageMetadata 
-        title={product.title}
-        description={product.description || `Buy ${product.title} at $${product.price}. High quality product with fast delivery.`}
-        image={product.thumbnail || product.images?.[0]}
-        type="product"
-      />
-      <ProductDetailLayout product={product} />
-    </>
-  );
+  return <ProductDetailClient />;
 }

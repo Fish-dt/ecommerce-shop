@@ -1,6 +1,6 @@
 # 🛍️ Ecommerce Shop
 
-A modern, full-featured ecommerce application built with Next.js 16, React 19, and TypeScript. This project demonstrates React development practices, featuring server-side rendering, state management with Redux Toolkit, and a comprehensive SEO implementation.
+A modern, full-featured ecommerce application built with Next.js 16, React 19, and TypeScript. This project demonstrates best practices React development practices, featuring server-side rendering, state management with Redux Toolkit, and a comprehensive SEO implementation.
 
 ## 📋 Table of Contents
 
@@ -9,14 +9,11 @@ A modern, full-featured ecommerce application built with Next.js 16, React 19, a
 - [Architecture](#-architecture)
 - [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
-- [Environment Variables](#-environment-variables)
-- [Development Guidelines](#-development-guidelines)
 - [State Management](#-state-management)
 - [Performance Optimizations](#-performance-optimizations)
 - [SEO Implementation](#-seo-implementation)
 - [API Integration](#-api-integration)
 - [Custom Hooks](#-custom-hooks)
-- [Troubleshooting](#-troubleshooting)
 
 ## ✨ Features
 
@@ -48,10 +45,7 @@ A modern, full-featured ecommerce application built with Next.js 16, React 19, a
 - **Redux Optimization**: Normalized state structure and selector memoization
 
 ### SEO
-- **Meta Tags**: Dynamic meta tags for each page
-- **Structured Data**: JSON-LD schema markup for products
-- **Open Graph**: Social media sharing optimization
-- **Twitter Cards**: Twitter-specific meta tags
+- **Meta Tags**: Basic page titles and descriptions via Next.js Metadata API
 - **Semantic HTML**: Proper HTML5 semantic elements
 
 ## 🛠 Tech Stack
@@ -203,15 +197,11 @@ ecommerce-shop/
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/Fish-dt/ecommerce-shop.git
 cd ecommerce-shop
 
 # Install dependencies
 npm install
-
-# Set up environment variables
-cp .env.example .env.local
-# Edit .env.local with your configuration
 
 # Run the development server
 npm run dev
@@ -235,72 +225,6 @@ npm run dev
    # or
    pnpm install
    ```
-
-3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-   Edit `.env.local` with your configuration (see [Environment Variables](#-environment-variables))
-
-4. **Run the development server**
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   ```
-
-5. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-### Available Scripts
-
-```bash
-# Development
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-```
-
-### Build for Production
-
-```bash
-# Build the application
-npm run build
-
-# Start the production server
-npm start
-```
-
-## 🔐 Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```env
-# Site Configuration
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
-
-# NextAuth.js Configuration
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your-secret-key-here
-
-# API Configuration
-NEXT_PUBLIC_API_URL=https://dummyjson.com/products
-
-# Optional: Analytics
-NEXT_PUBLIC_GA_ID=your-google-analytics-id
-```
-
-### Environment Variable Descriptions
-
-- `NEXT_PUBLIC_SITE_URL`: The base URL of your application (used for SEO)
-- `NEXTAUTH_URL`: The canonical URL of your site (required for NextAuth.js)
-- `NEXTAUTH_SECRET`: A secret key for encrypting tokens (generate with `openssl rand -base64 32`)
-- `NEXT_PUBLIC_API_URL`: The base URL for the API (currently using DummyJSON)
-- `NEXT_PUBLIC_GA_ID`: Google Analytics tracking ID (optional)
-
 ## 📝 Development Guidelines
 
 ### Code Style
@@ -499,35 +423,9 @@ export function FavoritesInitializer() {
 
 ## 🔍 SEO Implementation
 
-### Meta Tags
+### Meta Tags (Basic)
 - Dynamic page titles
 - Meta descriptions
-- Open Graph tags
-- Twitter Card tags
-- Canonical URLs
-
-### Structured Data
-- Product schema (JSON-LD)
-- Website schema
-- Organization schema
-- Breadcrumb schema (where applicable)
-
-### Implementation
-
-#### Page Metadata
-```typescript
-<PageMetadata 
-  title="Product Name"
-  description="Product description"
-  image={product.thumbnail}
-  type="product"
-/>
-```
-
-#### Structured Data
-```typescript
-<ProductStructuredData product={product} />
-```
 
 ### SEO Best Practices
 
@@ -578,86 +476,16 @@ All API errors are handled consistently:
 
 ### API Endpoints
 
-Currently using [DummyJSON API](https://dummyjson.com):
+Currently using [DummyJSON API](`https://dummyjson.com`):
 - `GET /products` - List all products
+- `GET /products/search?q={query}` - Search products (e.g., `GET /products/search?q=phone`)
 - `GET /products/:id` - Get product by ID
+- `GET /products/categories` - Get all categories
 - `GET /products/category/:category` - Get products by category
 - `POST /products/add` - Create product
 - `PUT /products/:id` - Update product
 - `DELETE /products/:id` - Delete product
 
-## 🧪 Code Quality
-
-### Linting
-- **ESLint**: Code linting with Next.js config
-- **TypeScript**: Type checking
-- **Prettier**: Code formatting (optional)
-
-### Type Safety
-- Strict TypeScript configuration
-- Type definitions for all APIs
-- No `any` types
-- Proper error types
-
-### Code Reviews
-- Component composition
-- Performance considerations
-- Accessibility checks
-- SEO optimization
-- Error handling
-
-## 🤝 Contributing
-
-### Development Workflow
-
-1. **Create a feature branch**
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-2. **Make your changes**
-   - Follow coding guidelines
-   - Write meaningful commit messages
-   - Add tests if applicable
-
-3. **Test your changes**
-   ```bash
-   npm run lint
-   npm run build
-   ```
-
-4. **Commit your changes**
-   ```bash
-   git commit -m "feat: add new feature"
-   ```
-
-5. **Push to remote**
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-6. **Create a Pull Request**
-   - Describe your changes
-   - Reference related issues
-   - Request reviews
-
-## 📚 Additional Resources
-
-### Documentation
-- [Next.js Documentation](https://nextjs.org/docs)
-- [React Documentation](https://react.dev)
-- [Redux Toolkit Documentation](https://redux-toolkit.js.org)
-- [TypeScript Documentation](https://www.typescriptlang.org/docs)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-
-### Learning Resources
-- [Next.js Learn](https://nextjs.org/learn)
-- [React Beta Docs](https://react.dev)
-- [Redux Essentials](https://redux.js.org/tutorials/essentials/part-1-overview-concepts)
-
-## 👥 Authors
-
-- **Fisiha** - *Initial work* - (https://github.com/Fish-dt)
 
 ## 🧩 Custom Hooks
 
@@ -691,73 +519,5 @@ Theme management with persistence:
 - SSR-safe implementation
 - Mounted state handling
 
-## 🎨 Styling Guidelines
 
-### Tailwind CSS
-- Utility-first approach
-- Custom color palette (sky/blue theme)
-- Responsive breakpoints
-- Dark mode support
-- Custom animations
 
-### Component Styling
-- Consistent spacing (gap-4, gap-6)
-- Rounded corners (rounded-xl, rounded-2xl)
-- Shadow system (shadow-md, shadow-lg)
-- Border colors (border-slate-200, dark:border-slate-700)
-- Gradient backgrounds (bg-gradient-to-br)
-
-### Color Scheme
-- **Primary**: Sky/Blue gradient (sky-500 to blue-500)
-- **Background**: Slate colors (slate-50 to slate-900)
-- **Text**: Slate-900 (light) / Slate-50 (dark)
-- **Accents**: Sky-600, Sky-400
-- **Success**: Green-500
-- **Error**: Red-500
-- **Warning**: Amber-400
-## 📊 Project Statistics
-
-- **Components**: 50+ reusable components
-- **Pages**: 8+ pages
-- **Hooks**: 6 custom hooks
-- **Redux Slices**: 4 feature slices
-- **TypeScript Coverage**: 100%
-- **Bundle Size**: Optimized with code splitting
-- **Performance Score**: 90+ (Lighthouse)
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-#### Build Errors
-```bash
-# Clear .next directory
-rm -rf .next
-npm run build
-```
-
-#### Type Errors
-```bash
-# Restart TypeScript server
-# In VS Code: Cmd/Ctrl + Shift + P > "TypeScript: Restart TS Server"
-```
-
-#### Dependency Issues
-```bash
-# Clear node_modules and reinstall
-rm -rf node_modules package-lock.json
-npm install
-```
-
-#### Redux State Issues
-```bash
-# Clear localStorage
-localStorage.clear()
-```
-
-### Performance Issues
-
-1. **Check bundle size**: Use `npm run build` to see bundle analysis
-2. **Image optimization**: Ensure images are optimized
-3. **Memoization**: Check if components are properly memoized
-4. **API calls**: Monitor network tab for excessive calls
