@@ -115,8 +115,10 @@ You can run the project locally or instantly via Docker — whichever you prefer
 git clone https://github.com/Fish-dt/ecommerce-shop.git
 cd ecommerce-shop
 
-# Create a .env.local file in the root directory
+# Create a .env.local file in the root directory with the following:
 NEXT_PUBLIC_API_BASE=https://dummyjson.com/products
+NEXTAUTH_SECRET=your-secret-key-here
+NEXTAUTH_URL=http://localhost:3000
 
 npm install
 npm run dev
@@ -195,12 +197,36 @@ docker compose up --build
 ## 🔧 Environment Variables
 
 Set at runtime for Docker or locally via `.env.local` (not committed):
-- `NEXT_PUBLIC_API_BASE` (example: https://dummyjson.com/products)
 
-Example with Docker:
+### Required Variables
+
+1. **NEXT_PUBLIC_API_BASE** - API base URL for product data
+   - Example: `https://dummyjson.com/products`
+
+2. **NEXTAUTH_SECRET** - Secret key for NextAuth.js JWT encryption
+   - Generate a secure secret using:
+     ```bash
+     node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+     ```
+   - Example: `TMqIJScYS5pL7PTm7xF1cHveR3h/dGHze17n8/iDQQo=`
+
+3. **NEXTAUTH_URL** - Base URL of your application
+   - Development: `http://localhost:3000`
+   - Production: Your production domain (e.g., `https://yourdomain.com`)
+
+### Example .env.local file:
+```env
+NEXT_PUBLIC_API_BASE=https://dummyjson.com/products
+NEXTAUTH_SECRET=secret-key-here
+NEXTAUTH_URL=http://localhost:3000
+```
+
+### Docker Example:
 ```bash
 docker run --rm -p 3000:3000 \
   -e NEXT_PUBLIC_API_BASE=https://dummyjson.com/products \
+  -e NEXTAUTH_SECRET=your-generated-secret-key-here \
+  -e NEXTAUTH_URL=http://localhost:3000 \
   ecommerce-shop:latest
 ```
 

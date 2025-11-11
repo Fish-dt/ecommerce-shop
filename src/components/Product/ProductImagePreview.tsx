@@ -18,6 +18,13 @@ export function ProductImagePreview({ product }: ProductImagePreviewProps) {
           height={600}
           className="object-contain max-h-[500px] w-auto h-auto"
           priority
+          unoptimized={product.thumbnail?.includes('cdn.dummyjson.com')}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            if (target.src !== '/placeholder.svg') {
+              target.src = '/placeholder.svg';
+            }
+          }}
         />
       </div>
       {product.images && product.images.length > 1 && (
@@ -34,6 +41,13 @@ export function ProductImagePreview({ product }: ProductImagePreviewProps) {
                   fill
                   style={{ objectFit: 'cover' }}
                   className="rounded-lg"
+                  unoptimized={img?.includes('cdn.dummyjson.com')}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    if (target.src !== '/placeholder.svg') {
+                      target.src = '/placeholder.svg';
+                    }
+                  }}
                 />
               </div>
             ))}

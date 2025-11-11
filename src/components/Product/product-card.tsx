@@ -78,6 +78,13 @@ export const ProductCard: React.FC<ProductCardProps> = React.memo(({ product, lo
             fill
             style={{ objectFit: "cover" }}
             className="transition-all duration-500 ease-out"
+            unoptimized={images[hoveredImageIndex]?.includes('cdn.dummyjson.com')}
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              if (target.src !== '/placeholder.svg') {
+                target.src = '/placeholder.svg';
+              }
+            }}
           />
 
           <div className="absolute top-3 left-3 z-20">

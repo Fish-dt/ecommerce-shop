@@ -38,6 +38,13 @@ export function ProductImages({ product }: ProductImagesProps) {
             height={600}
             className="object-contain max-h-[600px] w-auto h-auto group-hover:scale-105 transition-transform duration-300"
             priority
+            unoptimized={currentImage?.includes('cdn.dummyjson.com')}
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              if (target.src !== '/placeholder.svg') {
+                target.src = '/placeholder.svg';
+              }
+            }}
           />
 
           <button
@@ -111,6 +118,13 @@ export function ProductImages({ product }: ProductImagesProps) {
                   alt={`Product thumbnail ${idx + 1}`}
                   fill
                   className="object-cover"
+                  unoptimized={img?.includes('cdn.dummyjson.com')}
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    if (target.src !== '/placeholder.svg') {
+                      target.src = '/placeholder.svg';
+                    }
+                  }}
                 />
               </button>
             ))}
