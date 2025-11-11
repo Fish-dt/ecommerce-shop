@@ -11,8 +11,6 @@ A modern ecommerce application built with Next.js 16, React 19, and TypeScript. 
 - Scripts
 - State Management
 - API
-- Docker
-- Environment Variables
 
 ## ✨ Features
 
@@ -131,7 +129,11 @@ You can use the published Docker image from [Docker Hub](https://hub.docker.com/
 
 ```bash
 docker pull fishux/ecommerce-shop:latest
-docker run -p 3000:3000 fishux/ecommerce-shop:latest
+docker run -p 3000:3000 \
+  -e NEXT_PUBLIC_API_BASE=https://dummyjson.com/products \
+  -e NEXTAUTH_SECRET=your-secret-key-here \
+  -e NEXTAUTH_URL=http://localhost:3000 \
+  fishux/ecommerce-shop:latest
 # Open http://localhost:3000
 ```
 
@@ -174,60 +176,5 @@ Common endpoints:
 - PUT /products/:id
 - DELETE /products/:id
 
-## 🐳 Docker
-
-A simple production Dockerfile is provided.
-
-Build:
-```bash
-docker build -t ecommerce-shop:latest .
-```
-
-Run:
-```bash
-docker run --rm -p 3000:3000 ecommerce-shop:latest
-```
-
-Compose:
-```bash
-docker compose up --build
-```
-
-
-## 🔧 Environment Variables
-
-Set at runtime for Docker or locally via `.env.local` (not committed):
-
-### Required Variables
-
-1. **NEXT_PUBLIC_API_BASE** - API base URL for product data
-   - Example: `https://dummyjson.com/products`
-
-2. **NEXTAUTH_SECRET** - Secret key for NextAuth.js JWT encryption
-   - Generate a secure secret using:
-     ```bash
-     node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
-     ```
-   - Example: `TMqIJScYS5pL7PTm7xF1cHveR3h/dGHze17n8/iDQQo=`
-
-3. **NEXTAUTH_URL** - Base URL of your application
-   - Development: `http://localhost:3000`
-   - Production: Your production domain (e.g., `https://yourdomain.com`)
-
-### Example .env.local file:
-```env
-NEXT_PUBLIC_API_BASE=https://dummyjson.com/products
-NEXTAUTH_SECRET=secret-key-here
-NEXTAUTH_URL=http://localhost:3000
-```
-
-### Docker Example:
-```bash
-docker run --rm -p 3000:3000 \
-  -e NEXT_PUBLIC_API_BASE=https://dummyjson.com/products \
-  -e NEXTAUTH_SECRET=your-generated-secret-key-here \
-  -e NEXTAUTH_URL=http://localhost:3000 \
-  ecommerce-shop:latest
-```
 
 ---

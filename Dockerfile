@@ -19,6 +19,10 @@ RUN npm config set fetch-retry-maxtimeout 120000 \
 # Copy the rest of the application to the working directory
 COPY . .
 
+# Accept build arguments for Next.js public environment variables
+ARG NEXT_PUBLIC_API_BASE
+ENV NEXT_PUBLIC_API_BASE=$NEXT_PUBLIC_API_BASE
+
 # Build the application
 RUN npm run build
 

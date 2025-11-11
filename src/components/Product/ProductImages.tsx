@@ -107,7 +107,7 @@ export function ProductImages({ product }: ProductImagesProps) {
               <button
                 key={idx}
                 onClick={() => setCurrentImageIndex(idx)}
-                className={`relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 border-2 transition-all ${
+                className={`relative w-16 h-16 rounded-lg overflow-hidden shrink-0 border-2 transition-all ${
                   idx === currentImageIndex
                     ? "border-sky-500 dark:border-sky-400 shadow-lg ring-2 ring-sky-200 dark:ring-sky-800"
                     : "border-slate-300 dark:border-slate-600 opacity-60 hover:opacity-100 hover:border-sky-300 dark:hover:border-sky-600"
