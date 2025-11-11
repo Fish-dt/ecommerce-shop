@@ -1,13 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export interface Product {
-  id: number;
-  title: string;
-  price: number;
-  category: string;
-  thumbnail: string;
-  rating?: number;
-}
+import type { Product } from '@/types/product';
 
 interface FavoritesState {
   items: Product[];

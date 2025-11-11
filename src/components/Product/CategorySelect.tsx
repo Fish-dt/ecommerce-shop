@@ -52,11 +52,17 @@ export function CategorySelect({ field, error, showLabel = false }: CategorySele
               No categories available
             </SelectItem>
           ) : (
-            categories.map((category) => (
-              <SelectItem key={category.slug || category} value={category.slug || category}>
-                {category.name || category}
-              </SelectItem>
-            ))
+            categories.map((category) => {
+              const isString = typeof category === 'string';
+              const key = isString ? category : (category.slug ?? (category.name ?? 'category'));
+              const value = isString ? category : (category.slug ?? (category.name ?? 'category'));
+              const label = isString ? category : (category.name ?? (category.slug ?? 'Category'));
+              return (
+                <SelectItem key={String(key)} value={String(value)}>
+                  {label}
+                </SelectItem>
+              );
+            })
           )}
         </SelectContent>
       </Select>

@@ -3,8 +3,8 @@ import axios from 'axios';
 /**
  * Base API configuration
  */
-export const API_BASE = 'https://dummyjson.com/products';
 
+export const API_BASE = process.env.NEXT_PUBLIC_API_BASE
 /**
  * Create axios instance with default config
  */

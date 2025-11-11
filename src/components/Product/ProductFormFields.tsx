@@ -62,7 +62,7 @@ export function ProductFormFields({ register, control, errors, showLabels = fals
         name="category"
         control={control}
         render={({ field }) => (
-          <CategorySelect field={field} error={errors.category?.message} showLabels={showLabels} />
+          <CategorySelect field={field} error={errors.category?.message} showLabel={showLabels} />
         )}
       />
     </div>

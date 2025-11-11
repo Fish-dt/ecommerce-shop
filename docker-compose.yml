@@ -1,0 +1,16 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ecommerce-shop:latest
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      # Add any runtime env vars here, e.g.:
+      # - NEXTAUTH_URL=http://localhost:3000
+      # - NEXT_PUBLIC_API_BASE=https://dummyjson.com
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
