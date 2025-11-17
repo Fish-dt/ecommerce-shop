@@ -1,4 +1,4 @@
-# Set the base image to Node.js 20 Alpine
+# Set the base image to Node.js 20 Alpine 
 FROM node:20-alpine
 
 WORKDIR /app
@@ -9,19 +9,25 @@ COPY package*.json ./
 # Install ca-certificates to ensure HTTPS requests work inside Alpine containers
 RUN apk add --no-cache ca-certificates
 
-# Slightly harden npm install against transient network issues by setting fetch-retry-maxtimeout, fetch-timeout, progress, and registry
+# Improve npm reliability
 RUN npm config set fetch-retry-maxtimeout 120000 \
   && npm config set fetch-timeout 600000 \
   && npm set progress=false \
   && npm config set registry https://registry.npmjs.org/ \
   && npm ci --no-audit --no-fund
 
-# Copy the rest of the application to the working directory
+# Copy the full project
 COPY . .
 
-# Accept build arguments for Next.js public environment variables
+# Accept **runtime environment variables**
 ARG NEXT_PUBLIC_API_BASE
 ENV NEXT_PUBLIC_API_BASE=$NEXT_PUBLIC_API_BASE
+
+ARG NEXTAUTH_SECRET
+ENV NEXTAUTH_SECRET=$NEXTAUTH_SECRET
+
+ARG NEXTAUTH_URL
+ENV NEXTAUTH_URL=$NEXTAUTH_URL
 
 # Build the application
 RUN npm run build
